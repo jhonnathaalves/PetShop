@@ -1,7 +1,9 @@
 package com.jhonnatha.petshop.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -35,12 +39,22 @@ public class Servico implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_funcionario")
 	private Funcionario funcionario;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_pet")
+	private Pet pet;
+
+	@ManyToMany
+	@JoinTable(name = "SERVICO_PRODUTO",
+				joinColumns = @JoinColumn(name = "id_servico"),
+				inverseJoinColumns = @JoinColumn(name = "id_produto"))	
+	private List<Produto> produtos = new ArrayList<>();
 
 	public Servico() {
 
 	}
 
-	public Servico(Integer id, Date dataEntrada, Date dataSaida, String descricao, Cliente cliente, Funcionario funcionario) {
+	public Servico(Integer id, Date dataEntrada, Date dataSaida, String descricao, Cliente cliente, Funcionario funcionario,  Pet pet) {
 		super();
 		this.id = id;
 		this.dataEntrada = dataEntrada;
@@ -49,6 +63,7 @@ public class Servico implements Serializable {
 		this.descricao = descricao;		
 		this.cliente = cliente;
 		this.funcionario = funcionario;
+		this.pet = pet;
 	}
 
 	@Override
@@ -115,5 +130,39 @@ public class Servico implements Serializable {
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	public Pet getPet() {
+		return pet;
+	}
+
+	public void setPet(Pet pet) {
+		this.pet = pet;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+	
+	
 
 }
