@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Raca implements Serializable {
 	
@@ -21,6 +23,7 @@ public class Raca implements Serializable {
 	private Integer id;
 	private String descricao;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "raca")
 	private List<Pet> pets = new ArrayList<>();
 

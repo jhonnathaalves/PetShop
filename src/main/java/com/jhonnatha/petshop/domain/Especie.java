@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Especie implements Serializable {
 	
@@ -20,6 +22,7 @@ public class Especie implements Serializable {
 	private Integer id;
 	private String descricao;	
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "especie")
 	private List<Pet> pets = new ArrayList<>();
 
